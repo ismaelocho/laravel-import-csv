@@ -42,7 +42,7 @@ Built with the Laravel 9 framework and Livewire
 ### Prerequisites
 
 The prerequisites that must be met in order to run this application are listed.
-* PHP 7.3^
+* PHP 7.4^
 * MySQL | MariaDB
 * Composer 2.3^
 * npm
@@ -59,14 +59,16 @@ _Below is an example of how you can instruct your audience on installing and set
    ```sh
    git clone https://github.com/ismaelocho/laravel-import-csv.git
    ```
-2. Add .env file and setup database connection
+2. Add .env file and setup database and Queue connection
    ```sh
     DB_CONNECTION=mysql
     DB_HOST=mysql
     DB_PORT=3306
-    DB_DATABASE=mydatabase
+    DB_DATABASE=aldea
     DB_USERNAME=imroot
     DB_PASSWORD=thepassword
+
+    QUEUE_CONNECTION=database
    ```
 3. point to the repository using cmd & run
    ```sh
