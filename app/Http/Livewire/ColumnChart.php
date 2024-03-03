@@ -8,6 +8,7 @@ use App\Models\Category;
 use Asantibanez\LivewireCharts\Facades\LivewireCharts;
 use Asantibanez\LivewireCharts\Models\ColumnChartModel;
 use Asantibanez\LivewireCharts\Models\TreeMapChartModel;
+use Illuminate\Support\Facades\Auth;
 
 class ColumnChart extends Component
 {
@@ -26,8 +27,8 @@ class ColumnChart extends Component
     public function render()
     {
         $categories = Category::all();        
-
-        $expenses = Expenditure::with('category')->get();
+        $userID = Auth::id();
+        $expenses = Expenditure::with('category')->where('user_id',  $userID)->get();
         $columnChartModel = $expenses->groupBy('category_id')
             ->reduce(function ($columnChartModel, $data) {
                 $typeID = $data->first()->category_id;
@@ -47,7 +48,7 @@ class ColumnChart extends Component
                 ->withGrid()
             );
         
-        $expenses = Expenditure::with('category')->get();
+        $expenses = Expenditure::with('category')->where('user_id',  $userID)->get();
         $pieChartModel = $expenses->groupBy('category_id')
             ->reduce(function ($pieChartModel, $data) {
                 $typeID = $data->first()->category_id;
@@ -67,7 +68,7 @@ class ColumnChart extends Component
                 ->setColors(['#f6ad55', '#fc8181', '#90cdf4', '#66DA26', '#cbd5e0', '#5bdae0', '#5b62e0'])
             );
         
-        $expenses = Expenditure::with('category')->get();
+        $expenses = Expenditure::with('category')->where('user_id',  $userID)->get();
         $lineChartModel = $expenses->groupBy('category_id')
             ->reduce(function ($lineChartModel, $data) {
                 $typeID = $data->first()->category_id;

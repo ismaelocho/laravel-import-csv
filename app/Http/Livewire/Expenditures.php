@@ -5,6 +5,8 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Expenditure;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
+
 
 class Expenditures extends Component
 {
@@ -19,7 +21,8 @@ class Expenditures extends Component
      */
     public function render()
     {
-        $this->expenses = Expenditure::with('category')->get();
+        $userID = Auth::id();
+        $this->expenses = Expenditure::with('category')->where('user_id',  $userID)->get();
         $this->categories = Category::all();
         return view('livewire.expenditures');
     }
