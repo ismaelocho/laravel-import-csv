@@ -42,7 +42,7 @@ Built with the Laravel 9 framework and Livewire
 ### Prerequisites
 
 The prerequisites that must be met in order to run this application are listed.
-* PHP 7.4^
+* PHP 8.1^
 * MySQL | MariaDB
 * Composer 2.3^
 * npm
