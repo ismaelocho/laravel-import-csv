@@ -133,13 +133,13 @@ _The web version has the sections of:
 * Expenses Import (Import from Excel or CSV File)
 * Expense Management (Edit info like category or amount and Delete records)
 
-<img src="images/charts.png" alt="charts" width="600">
+<img src="images/charts.png" alt="Dashboard" width="600">
 Dashboard
-<img src="images/list.png" alt="charts" width="600">
+<img src="images/list.png" alt="List" width="600">
 Expenses List
-<img src="images/import.png" alt="charts" width="600">
+<img src="images/import.png" alt="Import" width="600">
 Expenses Import
-<img src="images/management.png" alt="charts" width="600">
+<img src="images/management.png" alt="Management" width="600">
 Expense Management
 
 ### API Version
@@ -153,13 +153,13 @@ _The API version has the sections of:
 
 _To use the API version we recommend using POSTMAN to perform tests, the first step is to register the user, then login the user and thereby obtain the token, then with the token use it in the authorization section as Bearer Token and then go to the section body and select form-data and add a file type key with the name "file" and in value select the csv or xls file
 
-<img src="images/register.png" alt="charts" width="600">
+<img src="images/register.png" alt="login" width="600">
 login
-<img src="images/loging.png" alt="charts" width="600">
+<img src="images/loging.png" alt="register" width="600">
 register
-<img src="images/authorization.png" alt="charts" width="600">
+<img src="images/authorization.png" alt="authorization" width="600">
 authorization
-<img src="images/importfile.png" alt="charts" width="600">
+<img src="images/import-file.png" alt="import" width="600">
 import file
 
 
