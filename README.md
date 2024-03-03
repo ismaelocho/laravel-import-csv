@@ -69,6 +69,15 @@ _Below is an example of how you can instruct your audience on installing and set
     DB_PASSWORD=thepassword
 
     QUEUE_CONNECTION=database
+
+    MAIL_MAILER=smtp
+   MAIL_HOST=sandbox.smtp.mailtrap.io
+   MAIL_PORT=2525
+   MAIL_USERNAME=XXX
+   MAIL_PASSWORD=XXX
+   MAIL_ENCRYPTION=tls
+   MAIL_FROM_ADDRESS="admin@laravel.com"
+   MAIL_FROM_NAME="${APP_NAME}"
    ```
 3. point to the repository using cmd & run
    ```sh
@@ -86,6 +95,22 @@ _Below is an example of how you can instruct your audience on installing and set
    ```sh
    php artisan migrate:refresh --seed
    ```
+7. run to compile objects
+   ```sh
+   npm install && npm run dev
+   ```
+
+### QUEUE Notes
+
+_To run the queuing process run the command
+
+   ```sh
+   php artisan queue:work
+   ```
+
+### Send Email Notes
+
+_It is recommended to use the mailtrap.io service to test sending emails in a test environment.
 
 
 

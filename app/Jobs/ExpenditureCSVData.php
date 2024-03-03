@@ -10,6 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Bus\Batchable;
 use App\Models\Expenditure;
+use App\Jobs\SendEmailJob;
 
 class ExpenditureCSVData implements ShouldQueue
 {
@@ -41,5 +42,6 @@ class ExpenditureCSVData implements ShouldQueue
             $expenditureInput = array_combine($this->header, $product);
             Expenditure::create($expenditureInput);
         }
+        
     }
 }

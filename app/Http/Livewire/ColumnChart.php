@@ -7,11 +7,12 @@ use App\Models\Expenditure;
 use App\Models\Category;
 use Asantibanez\LivewireCharts\Facades\LivewireCharts;
 use Asantibanez\LivewireCharts\Models\ColumnChartModel;
+use Asantibanez\LivewireCharts\Models\TreeMapChartModel;
 
 class ColumnChart extends Component
 {
     public $firstRun = true;
-    public $showDataLabels = false;
+    public $showDataLabels = true;
     public $colors = [
         '1' => '#f6ad55',
         '2' => '#fc8181',
@@ -45,9 +46,74 @@ class ColumnChart extends Component
                 ->setColumnWidth(90)
                 ->withGrid()
             );
+        
+        $expenses = Expenditure::with('category')->get();
+        $pieChartModel = $expenses->groupBy('category_id')
+            ->reduce(function ($pieChartModel, $data) {
+                $typeID = $data->first()->category_id;
+                $type = $data->first()->category->name;
+                $value = $data->sum('amount');
+
+                return $pieChartModel->addSlice($type, $value, $this->colors[$typeID]);
+            }, LivewireCharts::pieChartModel()
+                //->setTitle('Expenses by Type')
+                ->setAnimated($this->firstRun)
+                ->setType('donut')
+                ->withOnSliceClickEvent('onSliceClick')
+                //->withoutLegend()
+                ->legendPositionBottom()
+                ->legendHorizontallyAlignedCenter()
+                ->setDataLabelsEnabled($this->showDataLabels)
+                ->setColors(['#f6ad55', '#fc8181', '#90cdf4', '#66DA26', '#cbd5e0', '#5bdae0', '#5b62e0'])
+            );
+        
+        $expenses = Expenditure::with('category')->get();
+        $lineChartModel = $expenses->groupBy('category_id')
+            ->reduce(function ($lineChartModel, $data) {
+                $typeID = $data->first()->category_id;
+                $index = $data->first()->category->name;
+
+                $amountTotal = $data->count('amount');
+
+                if ($index == 6) {
+                    $lineChartModel->addMarker(7, $amountTotal);
+                }
+
+                if ($index == 11) {
+                    $lineChartModel->addMarker(12, $amountTotal);
+                }
+
+                return $lineChartModel->addPoint($index, $amountTotal, $this->colors[$typeID]);
+            }, LivewireCharts::lineChartModel()
+                ->setTitle('Total items by categories')
+                ->setAnimated($this->firstRun)
+                ->withOnPointClickEvent('onPointClick')
+                ->setSmoothCurve()
+                ->setXAxisVisible(true)
+                ->setDataLabelsEnabled($this->showDataLabels)
+                ->sparklined()
+            );
+        
+        $treeChartModel = $expenses->groupBy('category_id')
+            ->reduce(function (TreeMapChartModel $chartModel, $data) {
+                $typeID = $data->first()->category_id;
+                $type = $data->first()->category->name;
+                $value = $data->count('amount');
+
+                return $chartModel->addBlock($type, $value)->addColor($this->colors[$typeID]);
+            }, LivewireCharts::treeMapChartModel()
+                ->setTitle('Total items by categories')
+                ->setAnimated($this->firstRun)
+                ->setDistributed(true)
+                ->withOnBlockClickEvent('onBlockClick')
+            );
+
         return view('livewire.column-chart')
             ->with([
                 'columnChartModel' => $columnChartModel,
+                'pieChartModel' => $pieChartModel,
+                'lineChartModel' => $lineChartModel,
+                'treeChartModel' => $treeChartModel,
             ]);
     }
 }

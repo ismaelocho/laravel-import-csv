@@ -36,7 +36,9 @@ class ExpenditureController extends Controller
 
     public function import(StoreExpenditureRequest $request){
         $user = Auth::id();
-        Excel::import(new ImportExpenditure($user), $request->file('file')->store('files'));
+        $userName = Auth::user()->name; 
+        $userEmail = Auth::user()->email; 
+        Excel::import(new ImportExpenditure($user, $userName, $userEmail), $request->file('file')->store('files'));
         
         return redirect()->route('expenditure.index')
                             ->with('success', 'CSV Import added on queue. will update you once done.');
