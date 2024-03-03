@@ -99,6 +99,11 @@ _Below is an example of how you can instruct your audience on installing and set
    ```sh
    npm install && npm run dev
    ```
+8. generate key to encript API tokens
+   ```sh
+   php artisan jwt:secret
+   ```
+   
 
 ### QUEUE Notes
 
@@ -112,12 +117,50 @@ _To run the queuing process run the command
 
 _It is recommended to use the mailtrap.io service to test sending emails in a test environment.
 
+<img src="images/email.png" alt="charts" width="600">
+Email
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
+### Web Version
 
+_The web version has the sections of:
+
+* Dashboard (charts and statitics)
+* Expenses List
+* Expenses Import (Import from Excel or CSV File)
+* Expense Management (Edit info like category or amount and Delete records)
+
+<img src="images/charts.png" alt="charts" width="600">
+Dashboard
+<img src="images/list.png" alt="charts" width="600">
+Expenses List
+<img src="images/import.png" alt="charts" width="600">
+Expenses Import
+<img src="images/management.png" alt="charts" width="600">
+Expense Management
+
+### API Version
+
+_The API version has the sections of:
+
+* login (get token) -> "POST" --	api/v1/login
+* register (create user) -> "POST" --	api/v1/register
+* logout (delete token) -> "POST" --	api/v1/logout
+* import (upload file csv or xls) -> "POST" --	api/v1/import
+
+_To use the API version we recommend using POSTMAN to perform tests, the first step is to register the user, then login the user and thereby obtain the token, then with the token use it in the authorization section as Bearer Token and then go to the section body and select form-data and add a file type key with the name "file" and in value select the csv or xls file
+
+<img src="images/register.png" alt="charts" width="600">
+login
+<img src="images/loging.png" alt="charts" width="600">
+register
+<img src="images/authorization.png" alt="charts" width="600">
+authorization
+<img src="images/importfile.png" alt="charts" width="600">
+import file
 
 
 <!-- LICENSE -->
